@@ -328,7 +328,7 @@ describe('useMiniapp', () => {
       { method: 'launchDeeplink', className: 'GPNavigator', methodName: 'launchDeeplink', params: 'gojek://home' },
       { method: 'launchUri', className: 'GPNavigator', methodName: 'launchUri', params: 'https://example.com' },
       { method: 'launchPayment', className: 'GP', methodName: 'launchPayment', params: 'payment://deeplink' },
-      { method: 'getLocation', className: 'GPLocation', methodName: 'getLocation', params: { accuracy: 'high' } },
+      { method: 'getLocation', className: 'GPLocation', methodName: 'getLocation', params: { enable_high_accuracy: true } },
       { method: 'getSystemInfo', className: 'GPSystem', methodName: 'getSystemInfo', params: {} },
       { method: 'getWifiInfo', className: 'GPSystem', methodName: 'getWifiInfo', params: {} },
       { method: 'getRootedDeviceInfo', className: 'GPSystem', methodName: 'getRootedDeviceInfo', params: {} },

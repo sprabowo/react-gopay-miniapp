@@ -98,7 +98,7 @@ The following methods are available directly from the hook:
 - `vibrate(params?: Record<string, unknown>)` - Vibrate device
 - `getLocale(params?: Record<string, unknown>)` - Get device locale
 
-### Low-Level Call Method
+### Primitive Call Method
 
 You can also use the generic `call` method with type parameter:
 
@@ -113,7 +113,7 @@ interface LocationData {
 const { call } = useMiniapp();
 
 // Promise based with typed response
-const result = await call<LocationData>('GPLocation', 'getLocation', { accuracy: 'high' });
+const result = await call<LocationData>('GPLocation', 'getLocation', { enable_high_accuracy: true });
 // result is typed as GopaySuccessResponse<LocationData>
 ```
 
@@ -133,26 +133,9 @@ function Loader() {
 }
 ```
 
-## TypeScript Support
-
-All types are exported from the package:
-
-```typescript
-import type {
-  GopaySuccessResponse,
-  GopayErrorResponse,
-  GopayResponse,
-  Platform,
-  JSAPILoaderOptions,
-  JSAPILoaderResult,
-  GopayMiniappOptions,
-  GoPayMiniappResult
-} from 'react-gopay-miniapp';
-```
-
 ## Error Handling
 
-The SDK properly forwards errors from the GoPay SDK and provides consistent error structures:
+The SDK properly forwards errors from the GoPay Miniapp SDK and provides consistent error structures:
 
 ```tsx
 try {
