@@ -52,11 +52,6 @@ export interface GopayErrorResponse {
 export type GopayResponse<T = unknown> = GopaySuccessResponse<T> | GopayErrorResponse
 
 /**
- * Platform types supported by GoPay Miniapp
- */
-export type Platform = 'ios' | 'android' | 'webview' | 'windvane' | 'unknown'
-
-/**
  * Options for JSAPILoader hook
  */
 export interface JSAPILoaderOptions {

@@ -117,7 +117,7 @@ export const useJSAPILoader = (options: JSAPILoaderOptions = {}): JSAPILoaderRes
  * @returns {GoPayMiniappResult} GoPay SDK interface
  * 
  * @example
- * const { call, isReady, platform, getAuthCode } = useMiniapp()
+ * const { call, isReady, getAuthCode } = useMiniapp()
  * 
  * const handleAuth = async () => {
  *   const result = await getAuthCode()
