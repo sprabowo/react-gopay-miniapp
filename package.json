@@ -1,7 +1,7 @@
 {
   "name": "react-gopay-miniapp",
   "type": "module",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "A React custom hook for GoPay Mini App SDK",
   "author": "Sigit Prabowo",
   "license": "MIT",
