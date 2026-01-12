@@ -14,15 +14,6 @@ declare global {
         timeout: number
       ) => void
     }
-    flutter_inappwebview?: unknown
-    webkit?: {
-      messageHandlers?: {
-        gpContainer?: unknown
-      }
-    }
-    Android?: unknown
-    gopayContainer?: unknown
-    WindVane?: unknown
   }
 }
 
