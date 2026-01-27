@@ -62,7 +62,7 @@ All methods return properly typed responses:
 {
   success: true,
   ret: "GP_SUCCESS",
-  data?: T  // Optional data field
+  data?: T  // Optional data field. see https://docs.midtrans.com/reference/list-of-jssdks-webkit-v4#jsapis-specification-v100
 }
 ```
 

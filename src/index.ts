@@ -6,7 +6,23 @@ import type {
   GoPayMiniappResult,
   GopaySuccessResponse,
   GopayErrorResponse,
-  GopayResponse
+  GopayResponse,
+  GetAuthCodeData,
+  GetLocationData,
+  GetSystemInfoData,
+  GetWifiInfoData,
+  GetRootedDeviceInfoData,
+  GetBankAccountTokenData,
+  GetUserConsentData,
+  LaunchPaymentData,
+  LaunchDeeplinkSuccessResponse,
+  LaunchUriSuccessResponse,
+  StartAccelerometerSuccessResponse,
+  StopAccelerometerSuccessResponse,
+  StartCompassSuccessResponse,
+  StopCompassSuccessResponse,
+  VibrateSuccessResponse,
+  GetLocaleSuccessResponse
 } from './types'
 
 /**
@@ -263,112 +279,112 @@ export const useMiniapp = (options: GopayMiniappOptions = {}): GoPayMiniappResul
      * Get authentication code
      */
     getAuthCode: useCallback((params = {}) => {
-      return call('GPMiniAppAuth', 'getAuthCode', params)
+      return call<GetAuthCodeData>('GPMiniAppAuth', 'getAuthCode', params)
     }, [call]),
 
     /**
      * Launch deeplink
      */
     launchDeeplink: useCallback((deeplink: string) => {
-      return call('GPNavigator', 'launchDeeplink', { deeplink })
+      return call('GPNavigator', 'launchDeeplink', { deeplink }) as Promise<LaunchDeeplinkSuccessResponse>
     }, [call]),
 
     /**
      * Launch URI
      */
     launchUri: useCallback((uri: string) => {
-      return call('GPNavigator', 'launchUri', { uri })
+      return call('GPNavigator', 'launchUri', { uri }) as Promise<LaunchUriSuccessResponse>
     }, [call]),
 
     /**
      * Launch payment
      */
     launchPayment: useCallback((deeplink: string) => {
-      return call('GP', 'launchPayment', { deeplink })
+      return call<LaunchPaymentData>('GP', 'launchPayment', { deeplink })
     }, [call]),
 
     /**
      * Get location
      */
     getLocation: useCallback((params = {}) => {
-      return call('GPLocation', 'getLocation', params)
+      return call<GetLocationData>('GPLocation', 'getLocation', params)
     }, [call]),
 
     /**
      * Get system info
      */
     getSystemInfo: useCallback((params = {}) => {
-      return call('GPSystem', 'getSystemInfo', params)
+      return call<GetSystemInfoData>('GPSystem', 'getSystemInfo', params)
     }, [call]),
 
     /**
      * Get WiFi info
      */
     getWifiInfo: useCallback((params = {}) => {
-      return call('GPSystem', 'getWifiInfo', params)
+      return call<GetWifiInfoData>('GPSystem', 'getWifiInfo', params)
     }, [call]),
 
     /**
      * Check if device is rooted
      */
     getRootedDeviceInfo: useCallback((params = {}) => {
-      return call('GPSystem', 'getRootedDeviceInfo', params)
+      return call<GetRootedDeviceInfoData>('GPSystem', 'getRootedDeviceInfo', params)
     }, [call]),
 
     /**
      * Get bank account token
      */
     getBankAccountToken: useCallback((params = {}) => {
-      return call('GPBank', 'getBankAccountToken', params)
+      return call<GetBankAccountTokenData>('GPBank', 'getBankAccountToken', params)
     }, [call]),
 
     /**
      * Get user consent
      */
     getUserConsent: useCallback((consentName: string) => {
-      return call('GPConsent', 'getUserConsent', { consent_name: consentName })
+      return call<GetUserConsentData>('GPConsent', 'getUserConsent', { consent_name: consentName })
     }, [call]),
 
     /**
      * Start accelerometer
      */
     startAccelerometer: useCallback((params = {}) => {
-      return call('GPSensor', 'startAccelerometer', params)
+      return call('GPSensor', 'startAccelerometer', params) as Promise<StartAccelerometerSuccessResponse>
     }, [call]),
 
     /**
      * Stop accelerometer
      */
     stopAccelerometer: useCallback((params = {}) => {
-      return call('GPSensor', 'stopAccelerometer', params)
+      return call('GPSensor', 'stopAccelerometer', params) as Promise<StopAccelerometerSuccessResponse>
     }, [call]),
 
     /**
      * Start compass
      */
     startCompass: useCallback((params = {}) => {
-      return call('GPSensor', 'startCompass', params)
+      return call('GPSensor', 'startCompass', params) as Promise<StartCompassSuccessResponse>
     }, [call]),
 
     /**
      * Stop compass
      */
     stopCompass: useCallback((params = {}) => {
-      return call('GPSensor', 'stopCompass', params)
+      return call('GPSensor', 'stopCompass', params) as Promise<StopCompassSuccessResponse>
     }, [call]),
 
     /**
      * Vibrate device
      */
     vibrate: useCallback((params = {}) => {
-      return call('GPDevice', 'vibrate', params)
+      return call('GPDevice', 'vibrate', params) as Promise<VibrateSuccessResponse>
     }, [call]),
 
     /**
      * Get locale/language
      */
     getLocale: useCallback((params = {}) => {
-      return call('GPSystem', 'getLocale', params)
+      return call('GPSystem', 'getLocale', params) as Promise<GetLocaleSuccessResponse>
     }, [call])
   }
 
