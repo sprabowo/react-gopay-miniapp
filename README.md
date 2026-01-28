@@ -105,16 +105,15 @@ You can also use the generic `call` method with type parameter:
 ```tsx
 import type { GopaySuccessResponse } from 'react-gopay-miniapp';
 
-interface LocationData {
-  latitude: number;
-  longitude: number;
+interface GetLocaleSuccessResponse extends Omit<GopaySuccessResponse, 'data'> {
+  app_locale: 'en_ID' | 'id_ID' | string
 }
 
 const { call } = useMiniapp();
 
 // Promise based with typed response
-const result = await call<LocationData>('GPLocation', 'getLocation', { enable_high_accuracy: true });
-// result is typed as GopaySuccessResponse<LocationData>
+const result = await call('GPBase', 'getLocale') as GetLocaleSuccessResponse
+// result is typed as GetLocaleSuccessResponse
 ```
 
 ### `useJSAPILoader`
