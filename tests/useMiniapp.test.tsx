@@ -332,14 +332,14 @@ describe('useMiniapp', () => {
       { method: 'getSystemInfo', className: 'GPSystem', methodName: 'getSystemInfo', params: {} },
       { method: 'getWifiInfo', className: 'GPSystem', methodName: 'getWifiInfo', params: {} },
       { method: 'getRootedDeviceInfo', className: 'GPSystem', methodName: 'getRootedDeviceInfo', params: {} },
-      { method: 'getBankAccountToken', className: 'GPBank', methodName: 'getBankAccountToken', params: {} },
+      { method: 'getBankAccountToken', className: 'GP', methodName: 'getBankAccountToken', params: {} },
       { method: 'getUserConsent', className: 'GPConsent', methodName: 'getUserConsent', params: 'consent_name' },
-      { method: 'startAccelerometer', className: 'GPSensor', methodName: 'startAccelerometer', params: {} },
-      { method: 'stopAccelerometer', className: 'GPSensor', methodName: 'stopAccelerometer', params: {} },
-      { method: 'startCompass', className: 'GPSensor', methodName: 'startCompass', params: {} },
-      { method: 'stopCompass', className: 'GPSensor', methodName: 'stopCompass', params: {} },
-      { method: 'vibrate', className: 'GPDevice', methodName: 'vibrate', params: {} },
-      { method: 'getLocale', className: 'GPSystem', methodName: 'getLocale', params: {} },
+      { method: 'startAccelerometer', className: 'GPMotion', methodName: 'startAccelerometer', params: {} },
+      { method: 'stopAccelerometer', className: 'GPMotion', methodName: 'stopAccelerometer', params: {} },
+      { method: 'startCompass', className: 'GPMotion', methodName: 'startCompass', params: {} },
+      { method: 'stopCompass', className: 'GPMotion', methodName: 'stopCompass', params: {} },
+      { method: 'vibrate', className: 'GPMotion', methodName: 'vibrate', params: {} },
+      { method: 'getLocale', className: 'GPBase', methodName: 'getLocale', params: {} },
     ]
 
     helperTestCases.forEach(({ method, className, methodName, params }) => {

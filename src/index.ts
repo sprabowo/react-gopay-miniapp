@@ -335,7 +335,7 @@ export const useMiniapp = (options: GopayMiniappOptions = {}): GoPayMiniappResul
      * Get bank account token
      */
     getBankAccountToken: useCallback((params = {}) => {
-      return call<GetBankAccountTokenData>('GPBank', 'getBankAccountToken', params)
+      return call<GetBankAccountTokenData>('GP', 'getBankAccountToken', params)
     }, [call]),
 
     /**
@@ -349,42 +349,42 @@ export const useMiniapp = (options: GopayMiniappOptions = {}): GoPayMiniappResul
      * Start accelerometer
      */
     startAccelerometer: useCallback((params = {}) => {
-      return call('GPSensor', 'startAccelerometer', params) as Promise<StartAccelerometerSuccessResponse>
+      return call('GPMotion', 'startAccelerometer', params) as Promise<StartAccelerometerSuccessResponse>
     }, [call]),
 
     /**
      * Stop accelerometer
      */
     stopAccelerometer: useCallback((params = {}) => {
-      return call('GPSensor', 'stopAccelerometer', params) as Promise<StopAccelerometerSuccessResponse>
+      return call('GPMotion', 'stopAccelerometer', params) as Promise<StopAccelerometerSuccessResponse>
     }, [call]),
 
     /**
      * Start compass
      */
     startCompass: useCallback((params = {}) => {
-      return call('GPSensor', 'startCompass', params) as Promise<StartCompassSuccessResponse>
+      return call('GPMotion', 'startCompass', params) as Promise<StartCompassSuccessResponse>
     }, [call]),
 
     /**
      * Stop compass
      */
     stopCompass: useCallback((params = {}) => {
-      return call('GPSensor', 'stopCompass', params) as Promise<StopCompassSuccessResponse>
+      return call('GPMotion', 'stopCompass', params) as Promise<StopCompassSuccessResponse>
     }, [call]),
 
     /**
      * Vibrate device
      */
     vibrate: useCallback((params = {}) => {
-      return call('GPDevice', 'vibrate', params) as Promise<VibrateSuccessResponse>
+      return call('GPMotion', 'vibrate', params) as Promise<VibrateSuccessResponse>
     }, [call]),
 
     /**
      * Get locale/language
      */
     getLocale: useCallback((params = {}) => {
-      return call('GPSystem', 'getLocale', params) as Promise<GetLocaleSuccessResponse>
+      return call('GPBase', 'getLocale', params) as Promise<GetLocaleSuccessResponse>
     }, [call])
   }
 
