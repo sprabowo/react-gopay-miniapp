@@ -36,8 +36,9 @@ export interface GopaySuccessResponseWithMessage extends GopaySuccessResponse {
 /**
  * GoPay SDK success response with locale
  */
-export interface GopaySuccessResponseWithLocale extends GopaySuccessResponse {
-  app_locale: 'en_ID' | 'id_ID' | string
+export interface GopaySuccessResponseWithLocale extends GopaySuccessResponse<{
+  appLocale: 'en_ID' | 'id_ID' | string
+}> {
 }
 
 /**

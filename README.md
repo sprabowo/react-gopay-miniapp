@@ -106,7 +106,9 @@ You can also use the generic `call` method with type parameter:
 import type { GopaySuccessResponse } from 'react-gopay-miniapp';
 
 interface GetLocaleSuccessResponse extends Omit<GopaySuccessResponse, 'data'> {
-  app_locale: 'en_ID' | 'id_ID' | string
+  data: {
+    appLocale: 'en_ID' | 'id_ID' | string
+  }
 }
 
 const { call } = useMiniapp();

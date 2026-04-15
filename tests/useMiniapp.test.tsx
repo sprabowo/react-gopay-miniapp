@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest'
 import { renderHook, waitFor } from '@testing-library/react'
 import { useMiniapp } from '../src'
-import type { GopaySuccessResponse, GopayErrorResponse } from '../src'
+import type { GopaySuccessResponse, GopayErrorResponse, GetLocaleSuccessResponse } from '../src'
 
 describe('useMiniapp', () => {
   beforeEach(() => {
@@ -309,9 +309,14 @@ describe('useMiniapp', () => {
   })
 
   describe('helper methods', () => {
-    const setupReadyHook = async () => {
+    const defaultSuccessResponse = {
+      success: true,
+      ret: 'GP_SUCCESS'
+    } satisfies GopaySuccessResponse
+
+    const setupReadyHook = async (response: GopaySuccessResponse = defaultSuccessResponse) => {
       const mockCall = vi.fn((_, __, ___, success) => {
-        success({ success: true, ret: 'GP_SUCCESS' })
+        success(response)
       })
       mockGpContainer({ call: mockCall })
 
@@ -320,34 +325,52 @@ describe('useMiniapp', () => {
 
       await waitFor(() => expect(result.current.isReady).toBe(true))
 
-      return { result, mockCall }
+      return { result, mockCall, response }
     }
 
-    const helperTestCases = [
-      { method: 'getAuthCode', className: 'GPMiniAppAuth', methodName: 'getAuthCode', params: { scope: 'user' } },
-      { method: 'launchDeeplink', className: 'GPNavigator', methodName: 'launchDeeplink', params: 'gojek://home' },
-      { method: 'launchUri', className: 'GPNavigator', methodName: 'launchUri', params: 'https://example.com' },
-      { method: 'launchPayment', className: 'GP', methodName: 'launchPayment', params: 'payment://deeplink' },
-      { method: 'getLocation', className: 'GPLocation', methodName: 'getLocation', params: { enable_high_accuracy: true } },
-      { method: 'getSystemInfo', className: 'GPSystem', methodName: 'getSystemInfo', params: {} },
-      { method: 'getWifiInfo', className: 'GPSystem', methodName: 'getWifiInfo', params: {} },
-      { method: 'getRootedDeviceInfo', className: 'GPSystem', methodName: 'getRootedDeviceInfo', params: {} },
-      { method: 'getBankAccountToken', className: 'GP', methodName: 'getBankAccountToken', params: {} },
-      { method: 'getUserConsent', className: 'GPConsent', methodName: 'getUserConsent', params: 'consent_name' },
-      { method: 'startAccelerometer', className: 'GPMotion', methodName: 'startAccelerometer', params: {} },
-      { method: 'stopAccelerometer', className: 'GPMotion', methodName: 'stopAccelerometer', params: {} },
-      { method: 'startCompass', className: 'GPMotion', methodName: 'startCompass', params: {} },
-      { method: 'stopCompass', className: 'GPMotion', methodName: 'stopCompass', params: {} },
-      { method: 'vibrate', className: 'GPMotion', methodName: 'vibrate', params: {} },
-      { method: 'getLocale', className: 'GPBase', methodName: 'getLocale', params: {} },
+    const helperTestCases: Array<{
+      method: string
+      className: string
+      methodName: string
+      params: Record<string, unknown> | string
+      response: GopaySuccessResponse
+    }> = [
+      { method: 'getAuthCode', className: 'GPMiniAppAuth', methodName: 'getAuthCode', params: { scope: 'user' }, response: defaultSuccessResponse },
+      { method: 'launchDeeplink', className: 'GPNavigator', methodName: 'launchDeeplink', params: 'gojek://home', response: defaultSuccessResponse },
+      { method: 'launchUri', className: 'GPNavigator', methodName: 'launchUri', params: 'https://example.com', response: defaultSuccessResponse },
+      { method: 'launchPayment', className: 'GP', methodName: 'launchPayment', params: 'payment://deeplink', response: defaultSuccessResponse },
+      { method: 'getLocation', className: 'GPLocation', methodName: 'getLocation', params: { enable_high_accuracy: true }, response: defaultSuccessResponse },
+      { method: 'getSystemInfo', className: 'GPSystem', methodName: 'getSystemInfo', params: {}, response: defaultSuccessResponse },
+      { method: 'getWifiInfo', className: 'GPSystem', methodName: 'getWifiInfo', params: {}, response: defaultSuccessResponse },
+      { method: 'getRootedDeviceInfo', className: 'GPSystem', methodName: 'getRootedDeviceInfo', params: {}, response: defaultSuccessResponse },
+      { method: 'getBankAccountToken', className: 'GP', methodName: 'getBankAccountToken', params: {}, response: defaultSuccessResponse },
+      { method: 'getUserConsent', className: 'GPConsent', methodName: 'getUserConsent', params: 'consent_name', response: defaultSuccessResponse },
+      { method: 'startAccelerometer', className: 'GPMotion', methodName: 'startAccelerometer', params: {}, response: defaultSuccessResponse },
+      { method: 'stopAccelerometer', className: 'GPMotion', methodName: 'stopAccelerometer', params: {}, response: defaultSuccessResponse },
+      { method: 'startCompass', className: 'GPMotion', methodName: 'startCompass', params: {}, response: defaultSuccessResponse },
+      { method: 'stopCompass', className: 'GPMotion', methodName: 'stopCompass', params: {}, response: defaultSuccessResponse },
+      { method: 'vibrate', className: 'GPMotion', methodName: 'vibrate', params: {}, response: defaultSuccessResponse },
+      {
+        method: 'getLocale',
+        className: 'GPBase',
+        methodName: 'getLocale',
+        params: {},
+        response: {
+          success: true,
+          ret: 'GP_SUCCESS',
+          data: {
+            appLocale: 'id_ID'
+          }
+        } satisfies GetLocaleSuccessResponse
+      },
     ]
 
-    helperTestCases.forEach(({ method, className, methodName, params }) => {
+    helperTestCases.forEach(({ method, className, methodName, params, response }) => {
       it(`should call ${method} with correct parameters`, async () => {
-        const { result, mockCall } = await setupReadyHook()
+        const { result, mockCall } = await setupReadyHook(response)
 
         if (typeof params === 'string') {
-          await (result.current as any)[method](params)
+          const helperResult = await (result.current as any)[method](params)
 
           if (method === 'getUserConsent') {
             expect(mockCall).toHaveBeenCalledWith(
@@ -368,8 +391,11 @@ describe('useMiniapp', () => {
               expect.any(Number)
             )
           }
+
+          expect(helperResult).toEqual(response)
         } else {
-          await (result.current as any)[method](params)
+          const helperResult = await (result.current as any)[method](params)
+
           expect(mockCall).toHaveBeenCalledWith(
             className,
             methodName,
@@ -378,6 +404,8 @@ describe('useMiniapp', () => {
             expect.any(Function),
             expect.any(Number)
           )
+
+          expect(helperResult).toEqual(response)
         }
       })
     })
