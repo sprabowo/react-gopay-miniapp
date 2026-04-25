@@ -96,8 +96,6 @@ The following methods are available directly from the hook:
 - `vibrate(params?: Record<string, unknown>)` - Vibrate device
 - `getLocale(params?: Record<string, unknown>)` - Get device locale
 
-`getUserConsent` has been removed from the public helper API. Use the generic `call` method if you still need to invoke unsupported JS APIs directly.
-
 ### Primitive Call Method
 
 You can also use the generic `call` method with type parameter:
