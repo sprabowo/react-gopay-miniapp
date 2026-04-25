@@ -22,8 +22,7 @@ function App() {
     isReady, 
     isLoading, 
     error,
-    getAuthCode,
-    getUserConsent 
+    getAuthCode
   } = useMiniapp({
     onReady: () => console.log('SDK Ready'),
     onError: (err) => console.error('SDK Error', err)
@@ -62,7 +61,7 @@ All methods return properly typed responses:
 {
   success: true,
   ret: "GP_SUCCESS",
-  data?: T  // Optional data field. see https://docs.midtrans.com/reference/list-of-jssdks-webkit-v4#jsapis-specification-v100
+  data?: T  // Optional data field. see https://docs.midtrans.com/reference/frontend-v2
 }
 ```
 
@@ -90,13 +89,14 @@ The following methods are available directly from the hook:
 - `getWifiInfo(params?: Record<string, unknown>)` - Get WiFi information
 - `getRootedDeviceInfo(params?: Record<string, unknown>)` - Check if device is rooted
 - `getBankAccountToken(params?: Record<string, unknown>)` - Get bank account token
-- `getUserConsent(consentName: string)` - Get user consent
 - `startAccelerometer(params?: Record<string, unknown>)` - Start accelerometer
 - `stopAccelerometer(params?: Record<string, unknown>)` - Stop accelerometer
 - `startCompass(params?: Record<string, unknown>)` - Start compass
 - `stopCompass(params?: Record<string, unknown>)` - Stop compass
 - `vibrate(params?: Record<string, unknown>)` - Vibrate device
 - `getLocale(params?: Record<string, unknown>)` - Get device locale
+
+`getUserConsent` has been removed from the public helper API. Use the generic `call` method if you still need to invoke unsupported JS APIs directly.
 
 ### Primitive Call Method
 

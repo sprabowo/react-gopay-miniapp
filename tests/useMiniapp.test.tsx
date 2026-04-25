@@ -344,7 +344,6 @@ describe('useMiniapp', () => {
       { method: 'getWifiInfo', className: 'GPSystem', methodName: 'getWifiInfo', params: {}, response: defaultSuccessResponse },
       { method: 'getRootedDeviceInfo', className: 'GPSystem', methodName: 'getRootedDeviceInfo', params: {}, response: defaultSuccessResponse },
       { method: 'getBankAccountToken', className: 'GP', methodName: 'getBankAccountToken', params: {}, response: defaultSuccessResponse },
-      { method: 'getUserConsent', className: 'GPConsent', methodName: 'getUserConsent', params: 'consent_name', response: defaultSuccessResponse },
       { method: 'startAccelerometer', className: 'GPMotion', methodName: 'startAccelerometer', params: {}, response: defaultSuccessResponse },
       { method: 'stopAccelerometer', className: 'GPMotion', methodName: 'stopAccelerometer', params: {}, response: defaultSuccessResponse },
       { method: 'startCompass', className: 'GPMotion', methodName: 'startCompass', params: {}, response: defaultSuccessResponse },
@@ -372,25 +371,14 @@ describe('useMiniapp', () => {
         if (typeof params === 'string') {
           const helperResult = await (result.current as any)[method](params)
 
-          if (method === 'getUserConsent') {
-            expect(mockCall).toHaveBeenCalledWith(
-              className,
-              methodName,
-              { consent_name: params },
-              expect.any(Function),
-              expect.any(Function),
-              expect.any(Number)
-            )
-          } else {
-            expect(mockCall).toHaveBeenCalledWith(
-              className,
-              methodName,
-              { [method === 'launchDeeplink' || method === 'launchPayment' ? 'deeplink' : 'uri']: params },
-              expect.any(Function),
-              expect.any(Function),
-              expect.any(Number)
-            )
-          }
+          expect(mockCall).toHaveBeenCalledWith(
+            className,
+            methodName,
+            { [method === 'launchDeeplink' || method === 'launchPayment' ? 'deeplink' : 'uri']: params },
+            expect.any(Function),
+            expect.any(Function),
+            expect.any(Number)
+          )
 
           expect(helperResult).toEqual(response)
         } else {

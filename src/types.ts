@@ -76,11 +76,6 @@ export interface GetWifiInfoData {
   wifi_ssid: string
 }
 
-export interface GetUserConsentData {
-  consent_name: string
-  has_consent: boolean
-}
-
 export interface GetBankAccountTokenData {
   token: string
 }
@@ -97,7 +92,6 @@ export type GetLocationSuccessResponse = GopaySuccessResponse<GetLocationData>
 export type GetSystemInfoSuccessResponse = GopaySuccessResponse<GetSystemInfoData>
 export type GetRootedDeviceInfoSuccessResponse = GopaySuccessResponse<GetRootedDeviceInfoData>
 export type GetWifiInfoSuccessResponse = GopaySuccessResponse<GetWifiInfoData>
-export type GetUserConsentSuccessResponse = GopaySuccessResponse<GetUserConsentData>
 export type GetBankAccountTokenSuccessResponse = GopaySuccessResponse<GetBankAccountTokenData>
 export type LaunchPaymentSuccessResponse = GopaySuccessResponse<LaunchPaymentData>
 export type LaunchDeeplinkSuccessResponse = GopaySuccessResponse
@@ -184,7 +178,6 @@ export interface GoPayMiniappResult {
   getWifiInfo: (params?: Record<string, unknown>) => Promise<GetWifiInfoSuccessResponse>
   getRootedDeviceInfo: (params?: Record<string, unknown>) => Promise<GetRootedDeviceInfoSuccessResponse>
   getBankAccountToken: (params?: Record<string, unknown>) => Promise<GetBankAccountTokenSuccessResponse>
-  getUserConsent: (consentName: string) => Promise<GetUserConsentSuccessResponse>
   startAccelerometer: (params?: Record<string, unknown>) => Promise<StartAccelerometerSuccessResponse>
   stopAccelerometer: (params?: Record<string, unknown>) => Promise<StopAccelerometerSuccessResponse>
   startCompass: (params?: Record<string, unknown>) => Promise<StartCompassSuccessResponse>

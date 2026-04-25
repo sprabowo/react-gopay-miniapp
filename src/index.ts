@@ -13,7 +13,6 @@ import type {
   GetWifiInfoData,
   GetRootedDeviceInfoData,
   GetBankAccountTokenData,
-  GetUserConsentData,
   LaunchPaymentData,
   LaunchDeeplinkSuccessResponse,
   LaunchUriSuccessResponse,
@@ -336,13 +335,6 @@ export const useMiniapp = (options: GopayMiniappOptions = {}): GoPayMiniappResul
      */
     getBankAccountToken: useCallback((params = {}) => {
       return call<GetBankAccountTokenData>('GP', 'getBankAccountToken', params)
-    }, [call]),
-
-    /**
-     * Get user consent
-     */
-    getUserConsent: useCallback((consentName: string) => {
-      return call<GetUserConsentData>('GPConsent', 'getUserConsent', { consent_name: consentName })
     }, [call]),
 
     /**
